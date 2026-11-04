@@ -1171,6 +1171,13 @@ struct ArchCPU {
 
     QLIST_HEAD(, ARMELChangeHook) pre_el_change_hooks;
     QLIST_HEAD(, ARMELChangeHook) el_change_hooks;
+    /*
+     * Called (with the BQL held) as an AArch32 FIQ is taken: a board whose
+     * FIQ source acts as a latched edge clears it here (the S5L8950X's timer,
+     * hw/arm/s5l8950.c).
+     */
+    void (*fiq_taken_hook)(ARMCPU *cpu, void *opaque);
+    void *fiq_taken_opaque;
     /* A hook in either list needs the BQL (see arm_register_el_change_hook) */
     bool el_change_hooks_need_bql;
 

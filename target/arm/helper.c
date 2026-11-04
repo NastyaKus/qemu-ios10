@@ -9069,6 +9069,9 @@ static void arm_cpu_do_interrupt_aarch32(CPUState *cs)
             new_mode = ARM_CPU_MODE_MON;
         }
         offset = 4;
+        if (cpu->fiq_taken_hook) {
+            cpu->fiq_taken_hook(cpu, cpu->fiq_taken_opaque);
+        }
         break;
     case EXCP_VIRQ:
         new_mode = ARM_CPU_MODE_IRQ;
