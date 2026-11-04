@@ -699,6 +699,11 @@ config ARMSSE
 config IPOD_TOUCH_USB
     bool
 
+config S5L8950
+    bool
+    select EXYNOS4
+    select UNIMP
+
 config IPAD1
     bool
     select PL192
